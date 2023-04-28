@@ -9,13 +9,13 @@ Instalacion:
 - Descomprime el plugin en la carpeta de 
 
 plugins de wordpress:
-    'path_to_instalacion_wordpress/wp-content/plugins/wisprointegration/'
+    'path_to_instalacion_wordpress/wp-content/plugins/wispro_tools/'
 
 shortcode para registro de usuarios:
 
-[wisprointegration_registro]
+[wispro_tools_registro]
 
 shortcode bloque de planes 
 
-[wisprointegration_planes]
+[wispro_tools_planes]
 

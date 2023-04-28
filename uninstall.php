@@ -7,12 +7,10 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 $options = [
-    'wisprointegration_api_url',
-    'wisprointegration_api_token',
-    'wispro_integration_costo_instalacion',
-    'wisprointegration_pagina_proceso_compras',
-    'wisprointegration_whatsapp_number',
-    'wisprointegration_url_portal_cliente'
+    'wispro_tools_api_url',
+    'wispro_tools_api_token',
+    'wispro_tools_whatsapp_number',
+    'wispro_tools_url_portal_cliente'
 ];
 
 foreach ($options as $op){
@@ -22,4 +20,4 @@ foreach ($options as $op){
 
 //remove table sql
 global $wpdb;
-$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wispro_integration_planes");
+$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wispro_tools_planes");

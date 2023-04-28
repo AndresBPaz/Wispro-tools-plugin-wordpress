@@ -86,8 +86,8 @@ class table_planes extends WP_List_Table {
         
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&plan=%s">Editar</a>',$_REQUEST['page'],'edit',$item->id),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&plan=%s">Borrar</a>',$_REQUEST['page'],'delete',$item->id),
+            'edit'      => sprintf('<a href="?page=wispro_tools&tab=planes&action=%s&plan=%s">Editar</a>','edit',$item->id),
+            'delete'    => sprintf('<a href="?page=wispro_tools&tab=planes&action=%s&plan=%s">Borrar</a>','delete',$item->id),
         );
         
          //item post name from id
@@ -246,11 +246,11 @@ class table_planes extends WP_List_Table {
 
         if(isset($_POST['delete'])){
             $id = $_POST['id'];
-            $delete = $wpdb->delete($wpdb->prefix . 'wispro_integration_planes', array ('id' => $id));
+            $delete = $wpdb->delete($wpdb->prefix . 'wispro_tools_planes', array ('id' => $id));
             if(false === $delete){
                 echo '<div class="wrap"><h2>No se pudo eliminar el plan</h2></div>';
             }else{
-                echo '<script>window.location.href = "?page=wisprointegration%2Fadmin%2Fplanes.php";</script>';
+                echo '<script>window.location.href = "?page=wispro_tools&tab=planes";</script>';
             }
         }
 
@@ -262,7 +262,7 @@ class table_planes extends WP_List_Table {
             <form method="post" action="">
                 <input type="hidden" name="id" value="'.$id.'">
                 <input type="submit" name="delete" value="Eliminar" class="button-primary">
-                <a href="?page=wisprointegration%2Fadmin%2Fplanes.php" class="button-secondary">Cancelar</a>
+                <a href="?page=wispro_tools&tab=planes" class="button-secondary">Cancelar</a>
             </form>
         </div>';
         echo $confirm;
@@ -274,7 +274,6 @@ class table_planes extends WP_List_Table {
         global $wpdb; 
 
         if(isset($_POST['submit'])){
-            print_r($_POST);
             $plan_name = $_POST['plan_name'];
             $plan_subida = $_POST['plan_subida'];
             $plan_descarga = $_POST['plan_descarga'];
@@ -282,7 +281,7 @@ class table_planes extends WP_List_Table {
             $dispositivos = $_POST['num_dispositivos'];
             $estrato = $_POST['plan_estrato'];
             $woocomerce_product_id = $_POST['woocomerce_product_id'];
-            $update = $wpdb->update($wpdb->prefix . 'wispro_integration_planes', array(
+            $update = $wpdb->update($wpdb->prefix . 'wispro_tools_planes', array(
                 'nombre' => $plan_name,
                 'subida_kb' => $plan_subida,
                 'descarga_kb' => $plan_descarga,
@@ -294,14 +293,13 @@ class table_planes extends WP_List_Table {
                 echo '<script>alert("Error al actualizar el plan'.$update.'");</script>';
             }else{
                 echo 'informacion guardada';
-                //echo json_encode($update);
-                echo '<script>window.location.href = "?page=wisprointegration%2Fmodulos%2Fplanes%2Fplanes.php";</script>';
+                echo '<script>window.location.href = "?page=wispro_tools&tab=planes";</script>';
             }
         }
             
         //form edit plan
         $id = $_GET['plan'];
-        $plan = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->prefix" . "wispro_integration_planes WHERE id = '%s'", $id));
+        $plan = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->prefix" . "wispro_tools_planes WHERE id = '%s'", $id));
         $plan_name = $plan->nombre;
         $plan_subida = $plan->subida_kb;
         $plan_descarga = $plan->descarga_kb;
@@ -336,7 +334,7 @@ class table_planes extends WP_List_Table {
         $html .= '</tr>';
         // cantidad de dispositivos recomendados
         $html .= '<tr>';
-        $html .= '<th scope="row"><label for="plan_descarga">Dispositivos recomendados</label></th>';
+        $html .= '<th scope="row"><label for="plan_descarga">Dispositivos recomendados </label></th>';
         $html .= '<td><input name="num_dispositivos" type="text" id="num_dispositivos" value="'.$dispositivos.'" class="regular-text"></td>';
         $html .= '</tr>';
         $html .= '<tr>';
@@ -356,7 +354,7 @@ class table_planes extends WP_List_Table {
         $html .= '</tbody>';
         $html .= '</table>';
         $html .= '<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Guardar">';
-        $html .= '<a href="?page=wisprointegration%2Fadmin%2Fplanes.php" class="button button-secondary">Cancelar</a></p>';
+        $html .= '<a href="?page=wispro_tools&tab=planes" class="button button-secondary">Cancelar</a></p>';
         $html .= '</form>';
         $html .= '</div>';
         echo $html;
@@ -366,7 +364,6 @@ class table_planes extends WP_List_Table {
     function add_plan(){
         global $wpdb; 
         if(isset($_POST['submit'])){
-            print_r($_POST);
             $plan_name = $_POST['plan_name'];
             $plan_subida = $_POST['plan_subida'];
             $plan_descarga = $_POST['plan_descarga'];
@@ -374,7 +371,7 @@ class table_planes extends WP_List_Table {
             $estrato = $_POST['plan_estrato'];
             $woocomerce_product_id = $_POST['woocomerce_product_id'];
             $insert = $wpdb->insert(
-                $wpdb->prefix . 'wispro_integration_planes',
+                $wpdb->prefix . 'wispro_tools_planes',
                 array(
                     'nombre' => $plan_name,
                     'subida_kb' => $plan_subida,
@@ -399,7 +396,7 @@ class table_planes extends WP_List_Table {
             if($insert){
                 $this->show_message('Plan creado correctamente');
                 //echo json_encode($insert);
-                echo '<script>window.location.href = "?page=wisprointegration%2Fmodulos%2Fplanes%2Fplanes.php";</script>';
+                echo '<script>window.location.href = "?page=wispro_tools&tab=planes";</script>';
 
             }else{
                 $this->show_message('Error al crear el plan');
@@ -431,8 +428,8 @@ class table_planes extends WP_List_Table {
         $html .= '</tr>';
         // cantidad de dispositivos recomendados
         $html .= '<tr>';
-        $html .= '<th scope="row"><label for="plan_descarga">Dispositivos recomendados</label></th>';
-        $html .= '<td><input name="num_dispositivos" type="text" id="num_dispositivos" placeholder="Digite la cantidad de dispositivos recomendados" class="regular-text"></td>';
+        $html .= '<th scope="row"><label for="plan_descarga">Dispositivos recomendados </label></th>';
+        $html .= '<td><input name="num_dispositivos" type="text" id="num_dispositivos" placeholder="Digite la cantidad de dispositivos recomendados " class="regular-text"></td>';
         $html .= '</tr>';
         $html .= '<tr>';
         $html .= '<th scope="row"><label for="payment_url">product woocomerce</label></th>';
@@ -447,7 +444,7 @@ class table_planes extends WP_List_Table {
         $html .= '</tbody>';
         $html .= '</table>';
         $html .= '<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Guardar">';
-        $html .= '<a href="?page=wisprointegration%2Fadmin%2Fplanes.php" class="button button-secondary">Cancelar</a></p>';
+        $html .= '<a href="?page=wispro_tools&tab=planes" class="button button-secondary">Cancelar</a></p>';
         $html .= '</form>';
         $html .= '</div>';
         echo $html;
@@ -521,7 +518,7 @@ class table_planes extends WP_List_Table {
          * be able to use your precisely-queried data immediately.
          */
         global $wpdb;
-        $table_name = $wpdb->prefix.'wispro_integration_planes';
+        $table_name = $wpdb->prefix.'wispro_tools_planes';
         $data = $wpdb->get_results("SELECT * FROM $table_name");
         
         /**

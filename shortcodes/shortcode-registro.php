@@ -69,7 +69,7 @@ jQuery(document).ready(function($){
             url: '<?php echo admin_url('admin-ajax.php'); ?>',
             type: 'POST',
             data: {
-                action: 'wispro_integration_registrar_usuario',
+                action: 'wispro_tools_registrar_usuario',
                 name: name,
                 national_identification_number: national_identification_number,
                 email: email,

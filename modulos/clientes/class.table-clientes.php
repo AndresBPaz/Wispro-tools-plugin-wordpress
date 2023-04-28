@@ -87,8 +87,8 @@ class table_clientes extends WP_List_Table {
         
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&plan=%s">Editar</a>',$_REQUEST['page'],'edit',$item->id),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&plan=%s">Borrar</a>',$_REQUEST['page'],'delete',$item->id),
+            'edit'      => sprintf('<a href="?page=wispro_tools&tab=clientes&action=%s&plan=%s">Editar</a>','edit',$item->id),
+            'delete'    => sprintf('<a href="?page=wispro_tools&tab=clientes&action=%s&plan=%s">Borrar</a>','delete',$item->id),
         );
         
          //item post name from id
@@ -233,12 +233,12 @@ class table_clientes extends WP_List_Table {
                 'details' => $_POST['details'],
             );
             
-            $wispro_api = new WisproIntegrationRestApi();
+            $wispro_api = new wispro_tools_RestApi();
             $data = $wispro_api->remote_GET('/clients', $client);
 
             if($data->status == '200'){
                 echo '<div class="updated"><p>Client added successfully</p></div>';
-                echo '<script>window.location.href = "?page=wisprointegration%2Fmodulos%2Fclientes%2Fclientes.php";</script>';
+                echo '<script>window.location.href = "?page=wispro_tools&tab=clientes";</script>';
             }elseif ($data->status == '400') {
                 echo '<div class="error"><p>'.$data->message.'</p></div>';
             }else{
@@ -360,7 +360,7 @@ class table_clientes extends WP_List_Table {
          * be able to use your precisely-queried data immediately.
          */
 
-        $wispro_api = new WisproIntegrationRestApi();
+        $wispro_api = new wispro_tools_RestApi();
         $data = $wispro_api->remote_GET('clients')->data;
         
         /**

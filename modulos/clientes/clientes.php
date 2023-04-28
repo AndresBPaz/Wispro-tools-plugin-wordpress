@@ -5,12 +5,11 @@ require_once('class.table-clientes.php');
 
 //Pagina de listado y registro de clientes desde la rest api wispro cloud. 
 
-$wispro_class = new wisprointegration();
+$wispro_class = new wispro_tools();
 ?>
-<div class="wrap">
-    <h2><?php _e( 'Clientes','Wispro_integraton' ) ?></h2>
+<div class="wrap"> 
     <?php 
-	//comprobar option wisprointegration_api_token
+	//comprobar option wispro_tools_api_token
 	if(!$wispro_class->check()){
 		echo '<div class="error"><p>'.__('Para utilizar el plugin porfavor termine de configurar el plugin en la pagina de configuracion.').'</p></div>';
 	}else{

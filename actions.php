@@ -1,10 +1,10 @@
 <?php defined('ABSPATH') or die("adios adios");
 
-add_action('wp_ajax_nopriv_wispro_integration_registrar_usuario', 'crear_cliente');
-add_action('wp_ajax_wispro_integration_registrar_usuario', 'crear_cliente');
+add_action('wp_ajax_nopriv_wispro_tools_registrar_usuario', 'crear_cliente');
+add_action('wp_ajax_wispro_tools_registrar_usuario', 'crear_cliente');
 //action woocomerce get product attributes
-add_action('wp_ajax_nopriv_wispro_integration_get_product', 'get_product_data');
-add_action('wp_ajax_wispro_integration_get_product', 'get_product_data');
+add_action('wp_ajax_nopriv_wispro_tools_get_product', 'get_product_data');
+add_action('wp_ajax_wispro_tools_get_product', 'get_product_data');
 
 function get_product_data(){
     if(isset($_REQUEST['id'])){
@@ -26,7 +26,7 @@ function get_product_data(){
     }
 }
 function wispro_api(){
-    return new WisproIntegrationRestApi();
+    return new wispro_tools_RestApi();
 } 
 
 function crear_cliente(){ 
@@ -103,7 +103,7 @@ function crear_cliente(){
     }
 
     if(!$empty){ 
-        $wispro_api = new WisproIntegrationRestApi();
+        $wispro_api = new wispro_tools_RestApi();
         $client_exist = $wispro_api->remote_GET('/clients',[
             'national_identification_number_eq' => $national_identification_number
             ]);

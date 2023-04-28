@@ -3,12 +3,11 @@ if (! current_user_can ('manage_options')) wp_die (__ ('No tienes suficientes pe
 
 require_once('class.table-planes.php');
 
-$wispro_class = new wisprointegration();
+$wispro_class = new wispro_tools();
 ?>
-<div class="wrap">
-    <h2><?php _e( 'Planes','Wispro_integraton' ) ?></h2>
+<div class="wrap"> 
     <?php 
-	//comprobar option wisprointegration_api_token
+	//comprobar option wispro_tools_api_token
 	if(!$wispro_class->check()){
 		echo '<div class="error"><p>'.__('Para utilizar el plugin porfavor termine de configurar el plugin en la pagina de configuracion.').'</p></div>';
 	}else{
@@ -22,7 +21,7 @@ function get_table(){
 
     if (!isset($_GET['action'])) {
         //buttom add new
-        $url = admin_url('admin.php?page=wisprointegration%2Fmodulos%2Fplanes%2Fplanes.php&action=add');
+        $url = admin_url('admin.php?page=wispro_tools&tab=planes&action=add');
         $buttom_add_new = '<a href="'.$url.'" class="page-title-action">'.__('Agregar nuevo','Wispro_integraton').'</a>';
         echo $buttom_add_new;
     }

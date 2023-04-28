@@ -4,7 +4,7 @@ class shortcode_proceso_compra{
     private $respuesta = array();
 
     private function wispro_api(){
-        return new WisproIntegrationRestApi();
+        return new wispro_tools_RestApi();
     }
 
     function proceso_compra(){
@@ -20,7 +20,7 @@ class shortcode_proceso_compra{
                 'address' => $_POST['address'],
                 'phone_mobile' => $_POST['phone_mobile'],
                 'national_identification_number' => $_POST['national_identification_number'],
-                'state' => function(){
+                'state' => function(){ //TODO: Ciudades parametrizables
                     switch ($_POST['city']) {
                         case 'Miranda':
                         return 'Cauca';
@@ -79,7 +79,7 @@ class shortcode_proceso_compra{
         if(!empty($client_exist) && $client_exist->meta->pagination->total_records != 0){
             $this->respuesta['message'] = '<div class="alert alert-danger" role="alert">
             El cliente con el numero de documento '.$data_client['national_identification_number'].' ya se encuentra registrado.<br>
-            Accede desde <a href="'.get_option('wisprointegration_url_portal_cliente').'">aqui</a> al portal de cliente.
+            Accede desde <a href="'.get_option('wispro_tools_url_portal_cliente').'">aqui</a> al portal de cliente.
             </div>';
             return false;
         }else{
